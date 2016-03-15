@@ -1,5 +1,6 @@
 package com.bignerdranch.android.fccriminalintent;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.UUID;
 
@@ -10,14 +11,18 @@ public class Crime {
     private UUID mId;
     private String mTitle;
     private Date mDate;
+    private Date mTime;
     private boolean mSolved;
     private int levelOfCrime = 0;
 
+    DateFormat df = DateFormat.getDateInstance();
+    DateFormat tf = DateFormat.getTimeInstance();
 
     public Crime() {
         //Generate Unique Identifier
         mId = UUID.randomUUID();
         mDate = new Date();
+        mTime = new Date();
     }
 
     public UUID getId() {
@@ -54,5 +59,21 @@ public class Crime {
 
     public void setLevelOfCrime(int levelOfCrime) {
         this.levelOfCrime = levelOfCrime;
+    }
+
+    public String getDateString() {
+        return df.format(mDate);
+    }
+
+    public Date getTime() {
+        return mTime;
+    }
+
+    public void setTime(Date mTime) {
+        this.mTime = mTime;
+    }
+
+    public String getTimeString() {
+        return tf.format(mTime);
     }
 }
