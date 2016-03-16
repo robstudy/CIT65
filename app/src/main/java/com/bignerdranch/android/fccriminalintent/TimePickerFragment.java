@@ -3,7 +3,6 @@ package com.bignerdranch.android.fccriminalintent;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,13 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TimePicker;
 
-import android.text.format.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-public class TimePickerFragment extends DialogFragment /*implements TimePickerDialog.OnTimeSetListener*/{
+public class TimePickerFragment extends DialogFragment {
 
     private static final String ARG_TIME = "time";
     public static final String EXTRA_TIME = "com.bignerdranch.android.fccriminalintent.time";
