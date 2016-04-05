@@ -21,7 +21,6 @@ import static com.bignerdranch.android.fccriminalintent.database.CrimeDbSchema.*
 public class CrimeLab {
 
     private static CrimeLab sCrimeLab;
-    //private List<Crime> mCrimes;
     private Context mContext;
     private SQLiteDatabase mDatabase;
 
@@ -35,7 +34,6 @@ public class CrimeLab {
     private CrimeLab(Context context){
         mContext = context.getApplicationContext();
         mDatabase = new CrimeBaseHelper(mContext).getWritableDatabase();
-        //mCrimes = new ArrayList<>();
     }
 
     public void addCrime(Crime c) {
