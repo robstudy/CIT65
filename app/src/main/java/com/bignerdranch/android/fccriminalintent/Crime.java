@@ -9,7 +9,7 @@ import java.util.UUID;
  */
 public class Crime {
     private UUID mId;
-    private String mTitle;
+    private String mTitle = "";
     private Date mDate;
     private Date mTime;
     private boolean mSolved;
@@ -18,9 +18,13 @@ public class Crime {
     DateFormat df = DateFormat.getDateInstance();
     DateFormat tf = DateFormat.getTimeInstance();
 
-    public Crime() {
+    public Crime(){
+        this(UUID.randomUUID());
+    }
+
+    public Crime(UUID id) {
         //Generate Unique Identifier
-        mId = UUID.randomUUID();
+        mId = id;
         mDate = new Date();
         mTime = new Date();
     }
