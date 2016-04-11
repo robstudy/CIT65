@@ -15,6 +15,7 @@ public class CrimeDbSchema {
             public static final String SOLVED = "solved";
             public static final String TIME = "time";
             public static final String LEVELOFCRIME = "levelofcrime";
+            public static final String SUSPECT = "suspect";
         }
     }
 }

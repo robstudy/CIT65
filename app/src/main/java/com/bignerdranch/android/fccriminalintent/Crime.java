@@ -14,6 +14,7 @@ public class Crime {
     private Date mTime;
     private boolean mSolved;
     private int levelOfCrime = 0;
+    private String mSuspect;
 
     DateFormat df = DateFormat.getDateInstance();
     DateFormat tf = DateFormat.getTimeInstance();
@@ -79,5 +80,13 @@ public class Crime {
 
     public String getTimeString() {
         return tf.format(mTime);
+    }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String mSuspect) {
+        this.mSuspect = mSuspect;
     }
 }
