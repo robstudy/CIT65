@@ -21,6 +21,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,6 +47,7 @@ public class CrimeFragment extends Fragment  {
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final String DIALOG_TIME = "DialogTime";
+    private static final String DIALOG_SUSPECT = "DialogSuspect";
     private static final int REQUEST_DATE = 0;
     private static final int REQUEST_TIME = 1;
     private static final int REQUEST_CONTACT = 2;
@@ -121,7 +123,7 @@ public class CrimeFragment extends Fragment  {
                 c.close();
             }
         } else if (requestCode == REQUEST_PHOTO) {
-            updatePhotoView();
+            updatePhotoView(mPhotoView);
         }
 
         if (requestCode == REQUEST_TIME) {
@@ -275,7 +277,23 @@ public class CrimeFragment extends Fragment  {
         });
 
         mPhotoView = (ImageView) v.findViewById(R.id.crime_photo);
-        updatePhotoView();
+        mPhotoView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                updatePhotoView(mPhotoView);
+            }
+        });
+        mPhotoView.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                if(mPhotoFile != null && mPhotoFile.exists()) {
+                    FragmentManager fragmentManager = getFragmentManager();
+
+                    SuspectPhotoFragment.newInstance(mPhotoFile).show(fragmentManager, DIALOG_SUSPECT );
+                }
+            }
+        });
 
         return v;
     }
@@ -327,11 +345,17 @@ public class CrimeFragment extends Fragment  {
         return report;
     }
 
-    private void updatePhotoView() {
+    private void updatePhotoView(ImageView container) {
         if (mPhotoFile == null || !mPhotoFile.exists()) {
             mPhotoView.setImageDrawable(null);
         } else {
-            Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            Bitmap bitmap;
+            if (container == null) {
+                bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
+            } else {
+                bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), container);
+            }
+
             mPhotoView.setImageBitmap(bitmap);
         }
     }
